@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="31">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>89</ID>
+      <Description>"Init - run this FIRST within the Battle Screen)!"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+
+---------------------------------------------------------
+-- JA2 Cheat Engine Table                              --
+-- Created by CrazyGerry (agehring80)                  --
+--                                                     --
+-- Version Label: Stracciatella v0.17.0+1e6667a        --
+-- Version #:     Build 04.12.02                       --
+-- ja2-stracciatella_0.17.0+1e6667a_win-msvc64-141.exe --
+--                                                     --
+---------------------------------------------------------
+
+-- HotKey Exchange Things
+-- HotKey to hand, only if hand is empty or other HotKey stuff is in hand
+exchangeItems = {0,36,41,61,51,54,247,138,133,202,65,204,222,242,247}
+
+function has_value (tab, val)
+    for index, value in ipairs(tab) do
+        if value == val then
+            return true
+        end
+    end
+    return false
+end
+
+-- Init Items
+itmClear = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+itmHK21 = {36,0,1,0,100,2,20,0,101,0,100,0,0,0,0,0,241,0,54,1,50,0,147,0,100,100,100,100,0,0,0,0,126,0,0,0}
+itmARRifle = {65,0,1,0,100,10,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,200,11,0,0,0}
+itmMortar = {41,0,1,0,100,0,0,0,0,0,0,0,0,0,0,0,140,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0}
+itmLAW = {51,0,1,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0} --empty LAW = 247
+itmHMX = {138,0,1,0,100,0,0,0,0,0,0,0,0,0,0,0,224,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,242,0,1,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0} --Detonator to hand 2
+itmMustardGasGrenade = {133,0,1,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+itmLockSmith = {204,0,1,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+itmBooster = {222,0,1,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+itmMedKit = {202,0,1,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+itmTranquilizerDart = {61,0,1,0,100,11,100,0,114,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,13,0,0,0,61,0,1,0,100,11,100,0,114,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,13,0,0,0} --2 DartGun
+itmMachete = {54,0,1,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+
+-- Init Team+TeamMates addresses
+
+ja2 = getAddress("ja2.exe") -- base address
+soldierOffset = 0x9E8
+
+-- init arrays
+addrID = {}
+addrName = {}
+addrPersonID = {}
+addrTeam = {}
+addrMaxHealth = {}
+addrHealth = {}
+addrMaxEnergy = {}
+addrEnergy = {}
+addrMorale = {}
+addrAgility = {}
+addrDexterity = {}
+addrStrength = {}
+addrLeadership = {}
+addrWisdom = {}
+addrMarksmanship = {}
+addrExplosives = {}
+addrMechanical = {}
+addrMedical = {}
+addrLevel = {}
+addrCamouflage = {}
+addrBleeding = {}
+addrBreath = {}
+
+addrHead1 = {}
+addrHead2 = {}
+addrHand1 = {}
+addrHand2 = {}
+addrHelmet = {}
+addrVest = {}
+addrLeg = {}
+addrSmPock1 = {}
+addrSmPock2 = {}
+addrSmPock3 = {}
+addrSmPock4 = {}
+addrSmPock5 = {}
+addrSmPock6 = {}
+addrSmPock7 = {}
+addrSmPock8 = {}
+addrBigPock1 = {}
+addrBigPock2 = {}
+addrBigPock3 = {}
+addrBigPock4 = {}
+
+--// ENUMERATION OF SOLDIER POSIITONS IN GLOBAL SOLDIER LIST
+--#define MAX_NUM_SOLDIERS				148
+--#define NUM_PLANNING_MERCS			8 // XXX this is a remnant of the planning mode, see issue #902
+--#define TOTAL_SOLDIERS				( NUM_PLANNING_MERCS + MAX_NUM_SOLDIERS )
+totalSoldiers = 156
+
+-- fill all player addresses
+for i=1, totalSoldiers do
+  addrID[i] = ja2+0x15B7730+(soldierOffset*(i-1))
+  addrName[i] = ja2+0x15B7A28+(soldierOffset*(i-1))
+  addrPersonID[i] = ja2+0x15B7F41+(soldierOffset*(i-1))
+  addrTeam[i] = ja2+0x15B7A3A+(soldierOffset*(i-1))
+  addrMaxHealth[i] = ja2+0x15B7AE1+(soldierOffset*(i-1))
+  addrHealth[i] = ja2+0x15B7AB0+(soldierOffset*(i-1))
+  addrMaxEnergy[i] = ja2+0x15B7A00+(soldierOffset*(i-1))
+  addrEnergy[i] = ja2+0x15B79FF+(soldierOffset*(i-1))
+  addrMorale[i] = ja2+0x15B7EEC+(soldierOffset*(i-1))
+  addrAgility[i] = ja2+0x15B7ABA+(soldierOffset*(i-1))
+  addrDexterity[i] = ja2+0x15B7A76+(soldierOffset*(i-1))
+  addrStrength[i] = ja2+0x15B7AC0+(soldierOffset*(i-1))
+  addrLeadership[i] = ja2+0x15B7AC9+(soldierOffset*(i-1))
+  addrWisdom[i] = ja2+0x15B7A77+(soldierOffset*(i-1))
+  addrMarksmanship[i] = ja2+0x15B7DA0+(soldierOffset*(i-1))
+  addrExplosives[i] = ja2+0x15B7DA1+(soldierOffset*(i-1))
+  addrMechanical[i] = ja2+0x15B7AE0+(soldierOffset*(i-1))
+  addrMedical[i] = ja2+0x15B7D90+(soldierOffset*(i-1))
+  addrLevel[i] = ja2+0x15B7A93+(soldierOffset*(i-1))
+  addrCamouflage[i] = ja2+0x15B8048+(soldierOffset*(i-1))
+  addrBleeding[i] = ja2+0x15B79FE+(soldierOffset*(i-1))
+  addrBreath[i] = ja2+0x15B79FF+(soldierOffset*(i-1))
+--o----------o                         o----------o----------o-----------------o
+--|Head1     |           o----------o  |SmPock1   |SmPock5   |BigPock1         |
+--|0x15B77A4 |           |Helmet    |  |0x15B78C4 |0x15B7954 |0x15B7834        |
+--o----------o           |0x15B7738 |  o----------o----------o-----------------o
+--|Head2     |           o----------o  |SmPock2   |SmPock6   |BigPock2         |
+--|0x15B77C8 |           |Vest      |  |0x15B78E8 |0x15B7978 |0x15B7858        |
+--o----------o           |0x15B775C |  o----------o----------o-----------------o
+--                       o----------o  |SmPock3   |SmPock7   |BigPock3         |
+--                                     |0x15B790C |0x15B799C |0x15B787C        |
+--                                     o----------o----------o-----------------o
+--                                     |SmPock4   |SmPock8   |BigPock4         |
+--o-----------------o                  |0x15B7930 |0x15B79C0 |0x15B78A0        |
+--|Hand1            |    o----------o  o----------o----------o-----------------o
+--|0x15B77EC        |    |Leg       |
+--o-----------------o    |0x15B7780 |
+--|Hand2            |    o----------o
+--|0x15B7810        |
+--o-----------------o
+  addrHead1[i] = ja2+0x15B77A4+(soldierOffset*(i-1))
+  addrHead2[i] = ja2+0x15B77C8+(soldierOffset*(i-1))
+  addrHand1[i] = ja2+0x15B77EC+(soldierOffset*(i-1))
+  addrHand2[i] = ja2+0x15B7810+(soldierOffset*(i-1))
+  addrHelmet[i] = ja2+0x15B7738+(soldierOffset*(i-1))
+  addrVest[i] = ja2+0x15B775C+(soldierOffset*(i-1))
+  addrLeg[i] = ja2+0x15B7780+(soldierOffset*(i-1))
+  addrSmPock1[i] = ja2+0x15B78C4+(soldierOffset*(i-1))
+  addrSmPock2[i] = ja2+0x15B78E8+(soldierOffset*(i-1))
+  addrSmPock3[i] = ja2+0x15B790C+(soldierOffset*(i-1))
+  addrSmPock4[i] = ja2+0x15B7930+(soldierOffset*(i-1))
+  addrSmPock5[i] = ja2+0x15B7954+(soldierOffset*(i-1))
+  addrSmPock6[i] = ja2+0x15B7978+(soldierOffset*(i-1))
+  addrSmPock7[i] = ja2+0x15B799C+(soldierOffset*(i-1))
+  addrSmPock8[i] = ja2+0x15B79C0+(soldierOffset*(i-1))
+  addrBigPock1[i] = ja2+0x15B7834+(soldierOffset*(i-1))
+  addrBigPock2[i] = ja2+0x15B7858+(soldierOffset*(i-1))
+  addrBigPock3[i] = ja2+0x15B787C+(soldierOffset*(i-1))
+  addrBigPock4[i] = ja2+0x15B78A0+(soldierOffset*(i-1))
+end
+
+-- part of the source code file: Overhead_Types.h
+--// DEFINE TEAMS
+--#define OUR_TEAM					0
+--#define ENEMY_TEAM				1
+--#define CREATURE_TEAM				2
+--#define MILITIA_TEAM				3
+--#define CIV_TEAM					4
+--#define LAST_TEAM					CIV_TEAM
+
+--active soldiers needs a name and we want support only team 0 and 3
+function isTeamMate(name,team)
+  return name ~= nil and name ~= '' and (team == 0 or team == 3)
+end
+
+function getItem(item)
+  activatedSoldierIDAddr = readPointer(ja2+0x15B70C0)
+  --print(string.format("%.8x",activatedSoldierIDAddr))
+  if activatedSoldierIDAddr &gt;= addrID[1] and activatedSoldierIDAddr &lt;= addrID[totalSoldiers] then
+    activatedSoldierHand1Addr = activatedSoldierIDAddr + 0xBC
+    activatedSoldierHand2Addr = activatedSoldierHand1Addr + 0x24
+    if has_value(exchangeItems,readSmallInteger(activatedSoldierHand1Addr)) then
+      writeBytes(activatedSoldierHand1Addr, item)
+      if readBytes(activatedSoldierHand1Addr) ~= 138 and readBytes(activatedSoldierHand1Addr) ~=61 then -- not HMX ort DartGun? -&gt; empty hand2
+        writeBytes(activatedSoldierHand2Addr,itmClear)
+      end
+      if readBytes(activatedSoldierHand1Addr) == 65 then -- RocketRifle is protected by fingerprint (PersonID)
+        writeBytes(activatedSoldierHand1Addr+0x1F,readBytes(activatedSoldierIDAddr+0x811))
+      end
+      if readBytes(activatedSoldierHand1Addr) == 36 then -- HK21 often used as grenade launcher
+        writeBytes(activatedSoldierHand1Addr+0x84C, 2) -- Grenade Fire Mode
+      else
+        writeBytes(activatedSoldierHand1Addr+0x84C, 0) -- Single Fire Mode
+      end
+    end
+  end
+end
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>98</ID>
+      <Description>"Crtl+F1: A.R. Rifle to Hand"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+getItem(itmARRifle)
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>112</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound TTS="EN">{MRDescription} Activated</ActivateSound>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>95</ID>
+      <Description>"Crtl+F2: HK21 + Addons + Grenade"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+getItem(itmHK21)
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>113</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound TTS="EN">{MRDescription} Activated</ActivateSound>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>97</ID>
+      <Description>"Crtl+F3: Mortar to Hand"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+getItem(itmMortar)
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>114</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound TTS="EN">{MRDescription} Activated</ActivateSound>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>94</ID>
+      <Description>"Crtl+F4: LAW to Hand"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+getItem(itmLAW)
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>115</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound TTS="EN">{MRDescription} Activated</ActivateSound>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>93</ID>
+      <Description>"Crtl+F5: Mustard Gas Grenade to Hand"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+getItem(itmMustardGasGrenade)
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>116</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound TTS="EN">{MRDescription} Activated</ActivateSound>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>96</ID>
+      <Description>"Crtl+F6: HMX + Detonator to Hand"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+getItem(itmHMX)
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>117</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound TTS="EN">{MRDescription} Activated</ActivateSound>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>99</ID>
+      <Description>"Crtl+F7: LockSmith"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+getItem(itmLockSmith)
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>118</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound TTS="EN">{MRDescription} Activated</ActivateSound>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>92</ID>
+      <Description>"Crtl+F8: Booster to Hand"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+getItem(itmBooster)
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>119</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound TTS="EN">{MRDescription} Activated</ActivateSound>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>100</ID>
+      <Description>"Crtl+F9: MedKit to Hand"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+getItem(itmMedKit)
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>120</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound TTS="EN">{MRDescription} Activated</ActivateSound>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>102</ID>
+      <Description>"Crtl+F10: Tranquilizer Dart Gun"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+getItem(itmTranquilizerDart)
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>121</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound TTS="EN">{MRDescription} Activated</ActivateSound>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>103</ID>
+      <Description>"Crtl+F11: Machete"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+getItem(itmMachete)
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>122</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound TTS="EN">{MRDescription} Activated</ActivateSound>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>101</ID>
+      <Description>"Crtl+F12: Toggle NightVision / GasMask"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+activatedSoldierHead2Addr = readPointer(ja2+0x15B70C0) + 0x98
+if readBytes(activatedSoldierHead2Addr) == 213 then
+  writeBytes(activatedSoldierHead2Addr, 211,0,1,0,100)--Night Vision
+else
+  writeBytes(activatedSoldierHead2Addr, 213,0,1,0,100)--Gas Mask
+end
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>123</Key>
+          </Keys>
+          <ID>0</ID>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>84</ID>
+      <Description>"Auto - max skills, armor &amp; energy"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{$lua}
+[ENABLE]
+
+if syntaxCheck then return end
+skillthread = createThread(function(Thread)
+  while true do
+    if Thread.Terminated then break end -- breaks loops and allows function to end
+    sleep(30000) -- interval
+
+    for i=1,totalSoldiers do
+      soldierName = readString(addrName[i])
+      soldierTeam = readBytes(addrTeam[i])
+      soldierID = readBytes(addrID[i])
+      if isTeamMate(soldierName,soldierTeam) then
+        --print(soldierID, soldierName , soldierTeam)
+        writeBytes(addrMaxHealth[i], 99)
+        writeBytes(addrMaxEnergy[i], 99)
+        writeBytes(addrMorale[i], 99)
+        writeBytes(addrAgility[i], 99)
+        writeBytes(addrDexterity[i], 99)
+        writeBytes(addrStrength[i], 99)
+        writeBytes(addrLeadership[i], 99)
+        writeBytes(addrWisdom[i], 99)
+        writeBytes(addrMarksmanship[i], 99)
+        writeBytes(addrExplosives[i], 99)
+        writeBytes(addrMechanical[i], 99)
+        writeBytes(addrMedical[i], 99)
+        writeBytes(addrLevel[i], 9)
+        writeBytes(addrCamouflage[i], 100)
+
+        writeBytes(addrHelmet[i], 182,0,1,0,100)--Coated Spectra Helmet
+        writeBytes(addrVest[i], 169,0,1,0,100)--Coated Spectra Vest
+        writeBytes(addrLeg[i], 175,0,1,0,100)--Coated Spectra Leggings
+        writeBytes(addrHead1[i], 210,0,1,0,100)--Extended Ear
+        if readBytes(addrHead2[i]) == 211 then
+          writeBytes(addrHead2[i], 211,0,1,0,100)--Night Vision
+        else
+          writeBytes(addrHead2[i], 213,0,1,0,100)--Gas Mask
+        end
+
+        -- All militia gets HK21, own team gets equiped over the shortcut scripts
+        if soldierName ~= nil and soldierName ~= '' and soldierTeam == 3 then
+           writeBytes(addrHand1[i],36,0,1,0,100,2,20,0,101,0,100,0,0,0,0,0,241,0,54,1,50,0,147,0,100,100,100,100,0,0,0,0,126,0,0,0)
+        end
+
+      end
+    end
+
+  end
+end)
+
+[DISABLE]
+skillthread.terminate()
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>90</ID>
+      <Description>"Auto - reload &amp; body fix"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{$lua}
+[ENABLE]
+
+if syntaxCheck then return end
+inventorythread = createThread(function(Thread)
+  while true do
+    if Thread.Terminated then break end -- breaks loops and allows function to end
+    sleep(3000) -- interval
+
+    for i=1,totalSoldiers do
+      soldierName = readString(addrName[i])
+      soldierTeam = readBytes(addrTeam[i])
+      if isTeamMate(soldierName,soldierTeam) then
+        --print(soldierName , soldierTeam)
+        itemHand1 = readSmallInteger(addrHand1[i])
+
+        if itemHand1 == 65 then
+          writeBytes(addrHand1[i]+0x2, 1, 0, 100, 10, 20)-- Rocket Rifle Reload
+        elseif itemHand1 == 41 then
+          writeBytes(addrHand1[i]+0x2, 1, 0, 100)--Mortar Fix
+          writeBytes(addrHand1[i]+0x10, 140,0,0,0,0,0,0,0,100)--Mortar Reload
+        elseif itemHand1 == 51 or itemHand1 == 247 then
+          writeBytes(addrHand1[i], 51,0,1,0,100)--LAW
+        elseif itemHand1 == 36 then --HK21
+          writeBytes(addrHand1[i],36,0,1,0,100,2,20,0,101,0,100,0,0,0,0,0,241,0,54,1,50,0,147,0,100,100,100,100,0,0,0,0,126,0,0,0)
+        else
+          -- no match
+        end
+
+        writeBytes(addrBreath[i],99)--Breath
+        writeBytes(addrBleeding[i],0)--Bleeding
+        writeBytes(addrEnergy[i], 99)--Energy
+        writeBytes(addrHealth[i], 99)--Health
+      end
+    end
+
+  end
+end)
+
+[DISABLE]
+inventorythread.terminate()
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Money"</Description>
+      <LastState Value="133201" Activated="1" RealAddress="7FF7A7014568"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>ja2.exe+14C4568</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

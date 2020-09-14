@@ -3,7 +3,7 @@
   <CheatEntries>
     <CheatEntry>
       <ID>89</ID>
-      <Description>"Init - run this FIRST within the Battle Screen)!"</Description>
+      <Description>"Init - run this FIRST within the Battle Screen !"</Description>
       <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]

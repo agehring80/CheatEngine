@@ -73,6 +73,7 @@ addrMedical = {}
 addrLevel = {}
 addrCamouflage = {}
 addrBleeding = {}
+addrMaxBreath = {}        
 addrBreath = {}
 
 addrHead1 = {}
@@ -124,6 +125,7 @@ for i=1, totalSoldiers do
   addrLevel[i] = ja2+0x15B7A93+(soldierOffset*(i-1))
   addrCamouflage[i] = ja2+0x15B8048+(soldierOffset*(i-1))
   addrBleeding[i] = ja2+0x15B79FE+(soldierOffset*(i-1))
+  addrMaxBreath[i] = ja2+0x15B7A00+(soldierOffset*(i-1))
   addrBreath[i] = ja2+0x15B79FF+(soldierOffset*(i-1))
 --o----------o                         o----------o----------o-----------------o
 --|Head1     |           o----------o  |SmPock1   |SmPock5   |BigPock1         |
@@ -583,6 +585,7 @@ skillthread = createThread(function(Thread)
       if isTeamMate(soldierName,soldierTeam) then
         --print(soldierID, soldierName , soldierTeam)
         writeBytes(addrMaxHealth[i], 99)
+        writeBytes(addrMaxBreath[i], 99)
         writeBytes(addrMaxEnergy[i], 99)
         writeBytes(addrMorale[i], 99)
         writeBytes(addrAgility[i], 99)

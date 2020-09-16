@@ -661,10 +661,10 @@ inventorythread = createThread(function(Thread)
           -- no match
         end
 
-        writeBytes(addrBreath[i],99)--Breath
+        writeBytes(addrBreath[i],readBytes(addrMaxBreath[i]))--Breath
         writeBytes(addrBleeding[i],0)--Bleeding
-        writeBytes(addrEnergy[i], 99)--Energy
-        writeBytes(addrHealth[i], 99)--Health
+        writeBytes(addrEnergy[i],readBytes(addrMaxEnergy[i]))--Energy
+        writeBytes(addrHealth[i],readBytes(addrMaxHealth[i]))--Health
       end
     end
 

@@ -50,6 +50,7 @@ itmMachete = {54,0,1,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 
 ja2 = getAddress("ja2.exe") -- base address
 soldierOffset = 0x9E8
+activatedSoldierIDPointer = ja2+0x15B70C0
 
 -- init arrays
 addrID = {}
@@ -181,7 +182,7 @@ function isTeamMate(name,team)
 end
 
 function getItem(item)
-  activatedSoldierIDAddr = readPointer(ja2+0x15B70C0)
+  activatedSoldierIDAddr = readPointer(activatedSoldierIDPointer)
   --print(string.format("%.8x",activatedSoldierIDAddr))
   if activatedSoldierIDAddr &gt;= addrID[1] and activatedSoldierIDAddr &lt;= addrID[totalSoldiers] then
     activatedSoldierHand1Addr = activatedSoldierIDAddr + 0xBC
@@ -538,7 +539,7 @@ nop
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
-activatedSoldierHead2Addr = readPointer(ja2+0x15B70C0) + 0x98
+activatedSoldierHead2Addr = readPointer(activatedSoldierIDPointer) + 0x98
 if readBytes(activatedSoldierHead2Addr) == 213 then
   writeBytes(activatedSoldierHead2Addr, 211,0,1,0,100)--Night Vision
 else

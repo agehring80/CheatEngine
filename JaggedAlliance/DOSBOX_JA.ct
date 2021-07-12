@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="31">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"Find and set symbols"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{$Lua}      
+---------------------------------------------------------
+-- Jagged Alliance Cheat Engine Table                  --
+-- Created by CrazyGerry (agehring80)                  --
+--                                                     --
+-- Version: v1.13 Sep 05-95                            --
+--                                                     --
+-- Tested and created for the GOG version              --
+--                                                     --
+---------------------------------------------------------
+if syntaxcheck then return end
+
+[ENABLE]
+local needleAoB = AOBScan("4E 65 65 64 6C 65 00 08 83 C4 44 72 2E 20 4D 61 72 6B","+W-C");
+if (needleAoB == nil or needleAoB.Count &gt; 1) then --&gt; Ends function earlier if the AoB was not found, or if multiply aobs were found.
+   return
+end
+needleAddr=tonumber('0x' .. needleAoB[0])
+unregisterSymbol('NeedleAddress') registerSymbol('NeedleAddress',needleAddr)
+needleAoB.destroy()
+firstMercAddr=needleAddr+0xEE18
+activatedSoldierIDAddr=needleAddr+0x1993D1
+
+-- HotKey Exchange Things
+-- HotKey to hand, only if hand is empty or other HotKey stuff is in hand
+exchangeItems = {0,14,28,7,32,76,16,118,75,74}
+
+function has_value (tab, val)
+    for index, value in ipairs(tab) do
+        if value == val then
+            return true
+        end
+    end
+    return false
+end
+
+-- Init Items
+itmLength = 12
+itmClear = {0,0,0,0,0,0,0,0,0,0,0,0}
+itmM16 = {14,20,100,66,1,100,0,0,0,0,0,0}
+itmGren = {28,2,100,0,0,0,0,0,100,0,0,0}
+itmMagnSc = {7,10,100,66,1,100,0,0,0,0,0,0}
+itmMagnSil = {7,10,100,91,1,100,0,0,0,0,0,0}
+itmExpl = {32,99,100,0,0,0,0,0,100,0,0,0}
+itmLock = {76,99,100,0,0,0,0,0,0,0,0,0}
+itmCKnf = {16,99,100,0,0,0,0,0,0,0,0,0}
+itmCrBar = {118,99,100,0,0,0,0,0,0,0,0,0}
+itmTlKit = {75,99,100,0,0,0,0,0,0,0,0,0}
+itmMedKit = {74,99,100,0,0,0,0,0,0,0,0,0}
+itm5PVest = {53,99,100,0,0,0,0,0,0,0,0,0}
+itmTKHelm = {38,99,100,0,0,0,0,0,0,0,0,0}
+itmTrSpVest = {48,99,100,0,0,0,0,0,0,0,0,0}
+itmGasM = {40,99,100,0,0,0,0,0,0,0,0,0}
+itmEEar = {43,99,100,0,0,0,0,0,0,0,0,0}
+
+
+-- Init Team+TeamMates addresses
+soldierOffset = 0x200
+
+
+function getItem(item)
+   activatedSoldierID = readBytes(activatedSoldierIDAddr,1)
+   --print(string.format("%.8x",activatedSoldierID))
+   activatedSoldierHand1Addr = firstMercAddr+soldierOffset*activatedSoldierID
+   --print(string.format("%.8x",activatedSoldierHand1Addr))
+    if has_value(exchangeItems,readBytes(activatedSoldierHand1Addr,1)) then
+      writeBytes(activatedSoldierHand1Addr, item)
+    end
+end
+
+
+[DISABLE]
+unregisterSymbol('NeedleAddress')
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"Money"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>NeedleAddress+13E484</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"Crtl+U: MaxOut Soldier Health + Skills"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+
+activatedSoldierID = readBytes(activatedSoldierIDAddr,1)
+activatedSoldierHealth = firstMercAddr+0x183+soldierOffset*activatedSoldierID
+activatedSoldierSkills = firstMercAddr+0x18B+soldierOffset*activatedSoldierID
+activatedSoldierCamoflage = firstMercAddr+0x1B1+soldierOffset*activatedSoldierID
+writeBytes(activatedSoldierHealth, 100,100,0)
+writeBytes(activatedSoldierSkills, 100,100,100,100,100,100,100,10)
+writeBytes(activatedSoldierCamoflage,255)
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>85</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound>Activate</ActivateSound>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"Crtl+E: Get Base Equipment"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+
+activatedSoldierID = readBytes(activatedSoldierIDAddr,1)
+activatedSoldierHand2Addr = firstMercAddr+1*itmLength+soldierOffset*activatedSoldierID
+activatedSoldierHelmAddr = firstMercAddr+2*itmLength+soldierOffset*activatedSoldierID
+activatedSoldierFaceAddr = firstMercAddr+3*itmLength+soldierOffset*activatedSoldierID
+activatedSoldierEarAddr = firstMercAddr+4*itmLength+soldierOffset*activatedSoldierID
+activatedSoldierArmorAddr = firstMercAddr+5*itmLength+soldierOffset*activatedSoldierID
+activatedSoldierVestAddr = firstMercAddr+6*itmLength+soldierOffset*activatedSoldierID
+
+
+writeBytes(activatedSoldierHand2Addr, itmCKnf)
+writeBytes(activatedSoldierHelmAddr, itmTKHelm)
+writeBytes(activatedSoldierFaceAddr, itmGasM)
+writeBytes(activatedSoldierEarAddr, itmEEar)
+writeBytes(activatedSoldierArmorAddr, itmTrSpVest)
+writeBytes(activatedSoldierVestAddr, itm5PVest)
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>69</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound>Activate</ActivateSound>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"Num 1: M16 + Scope"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+getItem(itmM16)
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>97</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound>Activate</ActivateSound>
+        </Hotkey>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>49</Key>
+          </Keys>
+          <ID>1</ID>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"Num 2: Magnum + Silencer"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+getItem(itmMagnSil)
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>98</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound>Activate</ActivateSound>
+        </Hotkey>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>50</Key>
+          </Keys>
+          <ID>1</ID>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"Num 3: Magnum + Scope"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+getItem(itmMagnSc)
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>99</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound>Activate</ActivateSound>
+        </Hotkey>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>51</Key>
+          </Keys>
+          <ID>1</ID>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"Num 4: Grenade"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+getItem(itmGren)
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>100</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound>Activate</ActivateSound>
+        </Hotkey>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>52</Key>
+          </Keys>
+          <ID>1</ID>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>10</ID>
+      <Description>"Num 5: Pl.Explosive"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+getItem(itmExpl)
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>101</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound>Activate</ActivateSound>
+        </Hotkey>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>53</Key>
+          </Keys>
+          <ID>1</ID>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"Num 6: Locksmith"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+getItem(itmLock)
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>102</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound>Activate</ActivateSound>
+        </Hotkey>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>54</Key>
+          </Keys>
+          <ID>1</ID>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>17</ID>
+      <Description>"Num 7: Crowbar"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+getItem(itmCrBar)
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>103</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound>Activate</ActivateSound>
+        </Hotkey>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>55</Key>
+          </Keys>
+          <ID>1</ID>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>18</ID>
+      <Description>"Num 8: ToolKit"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+getItem(itmTlKit)
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>104</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound>Activate</ActivateSound>
+        </Hotkey>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>56</Key>
+          </Keys>
+          <ID>1</ID>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>19</ID>
+      <Description>"Num 9: MedKit"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+getItem(itmMedKit)
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>105</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound>Activate</ActivateSound>
+        </Hotkey>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>57</Key>
+          </Keys>
+          <ID>1</ID>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>14</ID>
+      <Description>"Num -: Item 5th pocket --"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+activatedSoldierID = readBytes(activatedSoldierIDAddr,1)
+activatedSoldierVestPocket5Addr = firstMercAddr+11*itmLength+soldierOffset*activatedSoldierID
+itemNow = readBytes(activatedSoldierVestPocket5Addr,1)
+--print(itemNow)
+writeBytes(activatedSoldierVestPocket5Addr, itemNow - 1,99,100)
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>109</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound>Activate</ActivateSound>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>15</ID>
+      <Description>"Num +: Item 5th pocket ++"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+activatedSoldierID = readBytes(activatedSoldierIDAddr,1)
+activatedSoldierVestPocket5Addr = firstMercAddr+11*itmLength+soldierOffset*activatedSoldierID
+itemNow = readBytes(activatedSoldierVestPocket5Addr,1)
+--print(itemNow)
+writeBytes(activatedSoldierVestPocket5Addr, itemNow + 1,99,100)
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>107</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound>Activate</ActivateSound>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"First Merc"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>NeedleAddress+EE18</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16</ID>
+      <Description>"NeedleAddress"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>NeedleAddress</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>NeedleAddress</Name>
+      <Address>F89BB60</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+</CheatTable>

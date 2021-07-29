@@ -1,0 +1,135 @@
+1	01	38er Rev
+2	02	45er Pis
+3	03	9mm Pis
+4	04	357 Pis
+5	05	45er Pis MOD
+6	06	9mm Pis MOD
+7	07	357 Pis MOD
+8	08	12g Shotgun
+9	09	12g Rifle
+10	0A	M14
+11	0B	M16
+12	0C	12g Rifle MOD
+13	0D	M14 MOD
+14	0E	M16 MOD
+15	0F	Knife
+16	10	Combat Knife
+17	11	Mine
+18	12	???
+19	13	Flagged Mine
+20	14	Smoke Bomb
+21	15	Eagle Smokeball
+22	16	Tear Gas
+23	17	Eagle Screamer
+24	18	Stun Grenade
+25	19	Eagle Silencer
+26	1A	Mustard Gas
+27	1B	Eagle Dog
+28	1C	Grenade
+29	1D	Molotov C
+30	1E	Eagle Fearball
+31	1F	Live Explosive
+32	20	Live Plastic
+33	21	Plastic Explosive
+34	22	Dynamite Stick
+35	23	Helmet
+36	24	Trt. Helmet
+37	25	Kevlar Helmet
+38	26	Trt. Kevlar Helmet
+39	27	Sun Visor
+40	28	Gas Mask
+41	29	???
+42	2A	Radio
+43	2B	Covert Radio
+44	2C	???
+45	2D	Kevlar Vest
+46	2E	Trt. Kevlar Vest
+47	2F	Spectra Shield
+48	30	Trt. Spectra Shield
+49	31	Carbon Fiber Vest
+50	32	2Vest
+51	33	3Vest
+52	34	4Vest
+53	35	5Vest
+54	36	38 Ammo
+55	37	45 Ammo
+56	38	 9 Ammo
+57	39	357 Ammo
+58	3A	???
+59	3B	12g Ammo
+60	3C	M14 Ammo
+61	3D	M16 Ammo
+62	3E	???
+63	3F	???
+64	40	Detonator
+65	41	Canteen
+66	42	Sniper Scope
+67	43	Steel
+68	44	???
+69	45	Wall Probe
+70	46	Camera
+71	47	Camouflage Kit
+72	48	Compound 17
+73	49	First Aid Kit
+74	4A	Medical Kit
+75	4B	Tool Kit
+76	4C	Locksmiths Kit
+77	4D	Metal Detector
+78	4E	Gas Detector
+79	4F	SixPack Beer
+80	50	???
+81	51	Pomillia Flower
+82	52	Plastic Bag
+83	53	Gas Can
+84	54	Glass Jar
+85	55	Rag
+86	56	Can of Oil
+87	57	Key
+88	58	Padlock Key
+89	59	Note1
+90	5A	Note2
+91	5B	Silencer
+92	5C	Bra
+93	5D	Rock
+94	5E	Antidote
+95	5F	Sapling
+96	60	Note3
+97	61	Note4
+98	62	Note5
+99	63	Note6
+100	64	Note7
+101	65	Note8
+102	66	Note9
+103	67	Note10
+104	68	Note11
+105	69	Note12
+106	6A	Note13
+107	6B	Note14
+108	6C	Note15
+109	6D	Note16
+110	6E	Journal
+111	6F	Money Bag
+112	70	???
+113	71	???
+114	72	???
+115	73	Torn piece of paper
+116	74	Taped Paper
+117	75	Fish Remains
+118	76	Crowbar
+119	77	Tombstone
+120	78	Clock/Bug Detector
+121	79	Micro Purifier
+122	7A	Blouse
+123	7B	Destroyed Sapling
+124	7C	Destroyed Journal
+125	7D	Glass Jar w. Oil
+126	7E	Glass Jar w. Gas
+127	7F	Glass Jar + pce.o.cloth
+128	80	Glass Jar + Gas + Oil
+129	81	Glass Jar + Gas + p.o. cloth
+130	82	Glass Jar + Oil + p.o. cloth
+131	83	Gas Can + Gas + Oil
+132	84	Gas Can + Gas + Rag
+133	85	Gas Can + Gas + Oil + Rag
+134	86	Lab Coat
+135	87	Pce of Paper

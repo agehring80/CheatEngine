@@ -1,0 +1,125 @@
+1	01	.38 revolver
+2	02	colt .45
+3	03	9mm beretta
+4	04	.357 magnum
+5	05	.44 redhawk
+6	06	modified .45
+7	07	modified 9mm
+8	08	modified .357
+9	09	modified .44 redhawk
+10	0A	.12G shotgun
+11	0B	9mm uzi smg
+12	0C	.12G rifle
+13	0D	m14 rifle
+14	0E	m16 rifle
+15	0F	modified 9mm uzi smg
+16	10	modified 12G rifle
+17	11	modified m14
+18	12	modified m16
+19	13	grenade launcher
+20	14	mortar
+21	15	knife
+22	16	combat knife
+23	17	.38 ammo(6)
+24	18	.45 ammo(6)
+25	19	9mm ammo(15)
+26	1A	.357 ammo(10)
+27	1B	.44 ammo(6)
+28	1C	.12G ammo(6)
+29	1D	m14 ammo(20)
+30	1E	m16 ammo(20)
+31	1F	unused ammo
+32	20	mortar shell
+33	21	rock
+34	22	grenade
+35	23	stun grenade
+36	24	tear gas
+37	25	mustard gas
+38	26	molotov cocktail
+39	27	detonator
+40	28	explosive
+41	29	plastic explosive
+42	2A	live explosive
+43	2B	live plastic
+44	2C	mine
+45	2D	eagle screamer
+46	2E	eagle silencer
+47	2F	eagle dog
+48	30	eagle fearball
+49	31	helmet
+50	32	treated helmet
+51	33	kevlar helmet
+52	34	treated kevlar helmet
+53	35	leather vest
+54	36	kevlar vest
+55	37	treated kevlar vest
+56	38	spectra shield
+57	39	treated spectra shield
+58	3A	shielded vest
+59	3B	2 pocket vest
+60	3C	3 pocket vest
+61	3D	4 pocket vest
+62	3E	5 pocket vest
+63	3F	first aid kit
+64	40	medical kit
+65	41	tool kit
+66	42	locksmith kit
+67	43	camouflage kit
+68	44	boobytrap kit
+69	45	silencer
+70	46	sniper scope
+71	47	chunk of steel
+72	48	compound 17
+73	49	radio
+74	4A	extended ear
+75	4B	sun googles
+76	4C	gas mask
+77	4D	canteen
+78	4E	metal detector
+79	4F	crowbar
+80	50	surveillance camera
+81	51	camera
+82	52	unused bug clock
+83	53	money
+84	54	gas can
+85	55	glass jar
+86	56	cloth rag
+87	57	oil can
+88	58	jar of oil
+89	59	jar of gas
+90	5A	rag in jar
+91	5B	jar of gas and oil
+92	5C	jar of gas and rag
+93	5D	jar of oil and rag
+94	5E	can of gas and oil
+95	5F	can of gas and rag
+96	60	can of gas and oil and rag
+97	61	key
+98	62	padlock key
+99	63	diskette
+100	64	compact disc
+101	65	audio cassette
+102	66	video cassette
+103	67	photograph
+104	68	microfilm
+105	69	blueprints
+106	6A	briefcase
+107	6B	strongbox
+108	6C	flask
+109	6D	counterfeit cash
+110	6E	satellite dish
+111	6F	painting
+112	70	strategic plans
+113	71	tactical map
+114	72	destroyed item
+115	73	bomb 1
+116	74	bomb 2
+117	75	panic bomb
+118	76	trigger 1
+119	77	trigger 2
+120	78	enemy trigger
+121	79	panic trigger
+122	7A	letter opener
+123	7B	machete
+124	7C	hedge trimmer
+125	7D	chainsaw 

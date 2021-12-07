@@ -13,9 +13,9 @@
 -- JA2 Cheat Engine Table                              --
 -- Created by CrazyGerry (agehring80)                  --
 --                                                     --
--- Version Label: Stracciatella v0.17.0+1e6667a        --
+-- Version Label: Stracciatella v0.18.0-git+ebc73ce    --
 -- Version #:     Build 04.12.02                       --
--- ja2-stracciatella_0.17.0+1e6667a_win-msvc32-140.exe --
+-- ja2-stracciatella_0.18.0-git+ebc73ce_win-msvc32-142 --
 --                                                     --
 ---------------------------------------------------------
 
@@ -46,12 +46,6 @@ itmMedKit = {202,0,1,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 itmTranquilizerDart = {61,0,1,0,100,11,100,0,114,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,13,0,0,0,61,0,1,0,100,11,100,0,114,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,13,0,0,0} --2 DartGun
 itmMachete = {54,0,1,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
 
--- Init Team+TeamMates addresses
-
-ja2 = getAddress("ja2.exe") -- base address
-soldierOffset = 0x81C
-activatedSoldierIDPointer = ja2+0x1082C34
-
 -- init arrays
 addrID = {}
 addrName = {}
@@ -74,8 +68,6 @@ addrMedical = {}
 addrLevel = {}
 addrCamouflage = {}
 addrBleeding = {}
-addrMaxBreath = {}        
-addrBreath = {}
 
 addrHead1 = {}
 addrHead2 = {}
@@ -103,68 +95,72 @@ addrBigPock4 = {}
 --#define TOTAL_SOLDIERS				( NUM_PLANNING_MERCS + MAX_NUM_SOLDIERS )
 totalSoldiers = 156
 
+-- Init Team+TeamMates addresses
+ja2 = getAddress("ja2.exe") -- base address
+activatedSoldierIDPointer = ja2+0x7E4620
+firstSoldierAddr = activatedSoldierIDPointer+0x398
+soldierOffset = 0x81C
+
 -- fill all player addresses
 for i=1, totalSoldiers do
-  addrID[i] = ja2+0x1082FC8+(soldierOffset*(i-1))
-  addrName[i] = ja2+0x10832A4+(soldierOffset*(i-1))
-  addrPersonID[i] = ja2+0x108363D+(soldierOffset*(i-1))
-  addrTeam[i] = ja2+0x10832B6+(soldierOffset*(i-1))
-  addrMaxHealth[i] = ja2+0x1083345+(soldierOffset*(i-1))
-  addrHealth[i] = ja2+0x1083314+(soldierOffset*(i-1))
-  addrMaxEnergy[i] = ja2+0x108328C+(soldierOffset*(i-1))
-  addrEnergy[i] = ja2+0x108328B+(soldierOffset*(i-1))
-  addrMorale[i] = ja2+0x10835F0+(soldierOffset*(i-1))
-  addrAgility[i] = ja2+0x108331E+(soldierOffset*(i-1))
-  addrDexterity[i] = ja2+0x10832F2+(soldierOffset*(i-1))
-  addrStrength[i] = ja2+0x1083324+(soldierOffset*(i-1))
-  addrLeadership[i] = ja2+0x108332D+(soldierOffset*(i-1))
-  addrWisdom[i] = ja2+0x10832F3+(soldierOffset*(i-1))
-  addrMarksmanship[i] = ja2+0x10834C4+(soldierOffset*(i-1))
-  addrExplosives[i] = ja2+0x10834C5+(soldierOffset*(i-1))
-  addrMechanical[i] = ja2+0x1083344+(soldierOffset*(i-1))
-  addrMedical[i] = ja2+0x10834BC+(soldierOffset*(i-1))
-  addrLevel[i] = ja2+0x1083303+(soldierOffset*(i-1))
-  addrCamouflage[i] = ja2+0x108372C+(soldierOffset*(i-1))
-  addrBleeding[i] = ja2+0x108328A+(soldierOffset*(i-1))
-  addrMaxBreath[i] = ja2+0x108328C+(soldierOffset*(i-1))
-  addrBreath[i] = ja2+0x108328B+(soldierOffset*(i-1))
---o----------o                         o----------o----------o-----------------o
---|Head1     |           o----------o  |SmPock1   |SmPock5   |BigPock1         |
---|0x108303C |           |Helmet    |  |0x108315C |0x10831EC |0x10830CC        |
---o----------o           |0x1082FD0 |  o----------o----------o-----------------o
---|Head2     |           o----------o  |SmPock2   |SmPock6   |BigPock2         |
---|0x1083060 |           |Vest      |  |0x1083180 |0x1083210 |0x10830F0        |
---o----------o           |0x1082FF4 |  o----------o----------o-----------------o
---                       o----------o  |SmPock3   |SmPock7   |BigPock3         |
---                                     |0x10831A4 |0x1083234 |0x1083114        |
---                                     o----------o----------o-----------------o
---                                     |SmPock4   |SmPock8   |BigPock4         |
---o-----------------o                  |0x10831C8 |0x1083258 |0x1083138        |
---|Hand1            |    o----------o  o----------o----------o-----------------o
---|0x1083084        |    |Leg       |
---o-----------------o    |0x1083018 |
---|Hand2            |    o----------o
---|0x10830A8        |
---o-----------------o
-  addrHead1[i] = ja2+0x108303C+(soldierOffset*(i-1))
-  addrHead2[i] = ja2+0x1083060+(soldierOffset*(i-1))
-  addrHand1[i] = ja2+0x1083084+(soldierOffset*(i-1))
-  addrHand2[i] = ja2+0x10830A8+(soldierOffset*(i-1))
-  addrHelmet[i] = ja2+0x1082FD0+(soldierOffset*(i-1))
-  addrVest[i] = ja2+0x1082FF4+(soldierOffset*(i-1))
-  addrLeg[i] = ja2+0x1083018+(soldierOffset*(i-1))
-  addrSmPock1[i] = ja2+0x108315C+(soldierOffset*(i-1))
-  addrSmPock2[i] = ja2+0x1083180+(soldierOffset*(i-1))
-  addrSmPock3[i] = ja2+0x10831A4+(soldierOffset*(i-1))
-  addrSmPock4[i] = ja2+0x10831C8+(soldierOffset*(i-1))
-  addrSmPock5[i] = ja2+0x10831EC+(soldierOffset*(i-1))
-  addrSmPock6[i] = ja2+0x1083210+(soldierOffset*(i-1))
-  addrSmPock7[i] = ja2+0x1083234+(soldierOffset*(i-1))
-  addrSmPock8[i] = ja2+0x1083258+(soldierOffset*(i-1))
-  addrBigPock1[i] = ja2+0x10830CC+(soldierOffset*(i-1))
-  addrBigPock2[i] = ja2+0x10830F0+(soldierOffset*(i-1))
-  addrBigPock3[i] = ja2+0x1083114+(soldierOffset*(i-1))
-  addrBigPock4[i] = ja2+0x1083138+(soldierOffset*(i-1))
+  --o----------o                         o----------o----------o-----------------o
+  --|Head1     |           o----------o  |SmPock1   |SmPock5   |BigPock1         |
+  --|+0x74     |           |Helmet    |  |+0x194    |+0x224    |+0x104           |
+  --o----------o           |+0x8      |  o----------o----------o-----------------o
+  --|Head2     |           o----------o  |SmPock2   |SmPock6   |BigPock2         |
+  --|+0x98     |           |Vest      |  |+0x1b8    |+0x248    |+0x128           |
+  --o----------o           |+0x2c     |  o----------o----------o-----------------o
+  --                       o----------o  |SmPock3   |SmPock7   |BigPock3         |
+  --                                     |+0x1dc    |+0x26c    |+0x14c           |
+  --                                     o----------o----------o-----------------o
+  --                                     |SmPock4   |SmPock8   |BigPock4         |
+  --o-----------------o                  |+0x200    |+0x290    |+0x170           |
+  --|Hand1            |    o----------o  o----------o----------o-----------------o
+  --|+0xbc            |    |Leg       |
+  --o-----------------o    |+0x50     |
+  --|Hand2            |    o----------o
+  --|+0xe0            |
+  --o-----------------o
+  addrID[i] = firstSoldierAddr+(soldierOffset*(i-1))
+  addrHelmet[i] = firstSoldierAddr+0x8+(soldierOffset*(i-1))
+  addrVest[i] = firstSoldierAddr+0x2c+(soldierOffset*(i-1))
+  addrLeg[i] = firstSoldierAddr+0x50+(soldierOffset*(i-1))
+  addrHead1[i] = firstSoldierAddr+0x74+(soldierOffset*(i-1))
+  addrHead2[i] = firstSoldierAddr+0x98+(soldierOffset*(i-1))
+  addrHand1[i] = firstSoldierAddr+0xbc+(soldierOffset*(i-1))
+  addrHand2[i] = firstSoldierAddr+0xe0+(soldierOffset*(i-1))
+  addrBigPock1[i] = firstSoldierAddr+0x104+(soldierOffset*(i-1))
+  addrBigPock2[i] = firstSoldierAddr+0x128+(soldierOffset*(i-1))
+  addrBigPock3[i] = firstSoldierAddr+0x14c+(soldierOffset*(i-1))
+  addrBigPock4[i] = firstSoldierAddr+0x170+(soldierOffset*(i-1))
+  addrSmPock1[i] = firstSoldierAddr+0x194+(soldierOffset*(i-1))
+  addrSmPock2[i] = firstSoldierAddr+0x1b8+(soldierOffset*(i-1))
+  addrSmPock3[i] = firstSoldierAddr+0x1dc+(soldierOffset*(i-1))
+  addrSmPock4[i] = firstSoldierAddr+0x200+(soldierOffset*(i-1))
+  addrSmPock5[i] = firstSoldierAddr+0x224+(soldierOffset*(i-1))
+  addrSmPock6[i] = firstSoldierAddr+0x248+(soldierOffset*(i-1))
+  addrSmPock7[i] = firstSoldierAddr+0x26c+(soldierOffset*(i-1))
+  addrSmPock8[i] = firstSoldierAddr+0x290+(soldierOffset*(i-1))
+  addrBleeding[i] = firstSoldierAddr+0x2c2+(soldierOffset*(i-1))
+  addrEnergy[i] = firstSoldierAddr+0x2c3+(soldierOffset*(i-1))
+  addrMaxEnergy[i] = firstSoldierAddr+0x2c4+(soldierOffset*(i-1))
+  addrName[i] = firstSoldierAddr+0x2dc+(soldierOffset*(i-1))
+  addrTeam[i] = firstSoldierAddr+0x2ee+(soldierOffset*(i-1))
+  addrDexterity[i] = firstSoldierAddr+0x32a+(soldierOffset*(i-1))
+  addrWisdom[i] = firstSoldierAddr+0x32b+(soldierOffset*(i-1))
+  addrLevel[i] = firstSoldierAddr+0x33b+(soldierOffset*(i-1))
+  addrHealth[i] = firstSoldierAddr+0x34c+(soldierOffset*(i-1))
+  addrAgility[i] = firstSoldierAddr+0x356+(soldierOffset*(i-1))
+  addrStrength[i] = firstSoldierAddr+0x35c+(soldierOffset*(i-1))
+  addrLeadership[i] = firstSoldierAddr+0x365+(soldierOffset*(i-1))
+  addrMechanical[i] = firstSoldierAddr+0x37c+(soldierOffset*(i-1))
+  addrMaxHealth[i] = firstSoldierAddr+0x37d+(soldierOffset*(i-1))
+  addrMedical[i] = firstSoldierAddr+0x4f4+(soldierOffset*(i-1))
+  addrMarksmanship[i] = firstSoldierAddr+0x4fc+(soldierOffset*(i-1))
+  addrExplosives[i] = firstSoldierAddr+0x4fd+(soldierOffset*(i-1))
+  addrMorale[i] = firstSoldierAddr+0x628+(soldierOffset*(i-1))
+  addrPersonID[i] = firstSoldierAddr+0x675+(soldierOffset*(i-1))
+  addrCamouflage[i] = firstSoldierAddr+0x764+(soldierOffset*(i-1))
 end
 
 -- part of the source code file: Overhead_Types.h
@@ -568,7 +564,7 @@ nop
     <CheatEntry>
       <ID>84</ID>
       <Description>"Auto - max skills, armor &amp; energy"</Description>
-      <LastState Activated="1"/>
+      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>{$lua}
 [ENABLE]
@@ -586,7 +582,6 @@ skillthread = createThread(function(Thread)
       if isTeamMate(soldierName,soldierTeam) then
         --print(soldierID, soldierName , soldierTeam)
         writeBytes(addrMaxHealth[i], 100)
-        writeBytes(addrMaxBreath[i], 100)
         writeBytes(addrMaxEnergy[i], 100)
         writeBytes(addrMorale[i], 99)
         writeBytes(addrAgility[i], 99)
@@ -630,7 +625,7 @@ skillthread.terminate()
     <CheatEntry>
       <ID>90</ID>
       <Description>"Auto - reload &amp; body fix"</Description>
-      <LastState Activated="1"/>
+      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>{$lua}
 [ENABLE]
@@ -661,7 +656,6 @@ inventorythread = createThread(function(Thread)
           -- no match
         end
 
-        writeBytes(addrBreath[i],readBytes(addrMaxBreath[i]))--Breath
         writeBytes(addrBleeding[i],0)--Bleeding
         writeBytes(addrEnergy[i],readBytes(addrMaxEnergy[i]))--Energy
         writeBytes(addrHealth[i],readBytes(addrMaxHealth[i]))--Health
@@ -677,10 +671,11 @@ inventorythread.terminate()
 </AssemblerScript>
     </CheatEntry>
     <CheatEntry>
-      <ID>104</ID>
+      <ID>0</ID>
       <Description>"Money"</Description>
+      <LastState Value="5000000" RealAddress=""/>
       <VariableType>4 Bytes</VariableType>
-      <Address>ja2.exe+FB24C0</Address>
+      <Address>ja2.exe+742FF8</Address>
     </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>

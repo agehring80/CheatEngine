@@ -13,9 +13,9 @@
 -- JA2 Cheat Engine Table                              --
 -- Created by CrazyGerry (agehring80)                  --
 --                                                     --
--- Version Label: Stracciatella v0.18.0-git+ebc73ce    --
+-- Version Label: Stracciatella v0.19.1-git+6ad1b6f    --
 -- Version #:     Build 04.12.02                       --
--- ja2-stracciatella_0.18.0-git+ebc73ce_win-msvc64-142 --
+-- ja2-stracciatella_0.19.1-git+6ad1b6f_win-msvc64-142 --
 --                                                     --
 ---------------------------------------------------------
 
@@ -97,7 +97,7 @@ totalSoldiers = 156
 
 -- Init Team+TeamMates addresses
 ja2 = getAddress("ja2.exe") -- base address
-activatedSoldierIDPointer = ja2+0x99EAA0
+activatedSoldierIDPointer = ja2+0x1CB59A0
 firstSoldierAddr = activatedSoldierIDPointer+0x670
 soldierOffset = 0x9E8
 
@@ -675,7 +675,7 @@ inventorythread.terminate()
       <Description>"Money"</Description>
       <LastState Value="5000000" RealAddress=""/>
       <VariableType>4 Bytes</VariableType>
-      <Address>ja2.exe+8DBB08</Address>
+      <Address>ja2.exe+1BC5598</Address>
     </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>

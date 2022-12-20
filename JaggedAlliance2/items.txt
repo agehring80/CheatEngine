@@ -1,0 +1,351 @@
+0	0	Nada
+1	1	Glock 17
+2	2	Glock 18
+3	3	Beretta 92F
+4	4	Beretta 93R
+5	5	.38 S&W
+6	6	Barracuda
+7	7	Desert Eagle
+8	8	Colt .45
+9	9	MP5K
+10	A	MAC-10
+11	B	Thompson
+12	C	Commando
+13	D	MP53
+14	E	AKSU-74
+15	F	P90
+16	10	Type-85
+17	11	SKS
+18	12	Dragunov
+19	13	M24
+20	14	Steyr
+21	15	G41
+22	16	Mini-14
+23	17	C-7
+24	18	FA-MAS
+25	19	AK-74
+26	1A	AKM
+27	1B	M-14
+28	1C	FN-FAL
+29	1D	G3A3
+30	1E	G11
+31	1F	M870
+32	20	SPAS-15
+33	21	CAWS
+34	22	Minimi
+35	23	RPK-74
+36	24	H&K 21
+37	25	Knife
+38	26	Throw. Knife
+39	27	Rock
+40	28	M79
+41	29	Mortar
+42	2A	Rock
+43	2B	YM Claws
+44	2C	YF Claws
+45	2D	AM Claws
+46	2E	AF Claws
+47	2F	Queen Tentacle
+48	30	Queen Spit
+49	31	Dusters
+50	32	Talon
+51	33	LAW
+52	34	Bloodcat Claws
+53	35	Bloodcat Bite
+54	36	Machete
+55	37	Rocket Rifle
+56	38	Automag
+57	39	Infant Spit
+58	3A	Young Male Spit
+59	3B	Old Male Spit
+60	3C	Cannon
+61	3D	Dart Gun
+62	3E	Bloody Knife
+63	3F	Flamethrower
+64	40	Crowbar
+65	41	A. R. Rifle
+66	42	'small name'
+67	43	'small name'
+68	44	'small name'
+69	45	'small name'
+70	46	'small name'
+71	47	9mm mag
+72	48	9mm SMG mag
+73	49	9mm mag AP
+74	4A	9mm SMG mag AP
+75	4B	9mm mag HP
+76	4C	9mm SMG mag HP
+77	4D	.38 S-load
+78	4E	.38 S-load AP
+79	4F	.38 S-load HP
+80	50	.45 mag
+81	51	.45 SMG mag
+82	52	.45 mag AP
+83	53	.45 SMG mag AP
+84	54	.45 mag HP
+85	55	.45 SMG mag HP
+86	56	.357 S-load
+87	57	.357 mag
+88	58	.357 S-load AP
+89	59	.357 mag AP
+90	5A	.357 S-load HP
+91	5B	.357 mag HP
+92	5C	5.45mm mag
+93	5D	5.45mm mag HP
+94	5E	5.56mm mag
+95	5F	5.56mm mag HP
+96	60	7.62mm WP 10
+97	61	7.62mm WP 30
+98	62	7.62mm WP 10
+99	63	7.62mm WP 30
+100	64	7.62mm NATO 5
+101	65	7.62mm NATO 20
+102	66	7.62mm NATO 5
+103	67	7.62mm NATO 20
+104	68	4.7mm mag
+105	69	5.7mm mag
+106	6A	5.7mm mag HP
+107	6B	12 Gauge
+108	6C	12 Gauge BS
+109	6D	CAWS mag
+110	6E	CAWS Buckshot
+111	6F	Minirockets, AP
+112	70	Minirockets, HE
+113	71	Minirockets, HEAP
+114	72	Dart
+115	73	'small name'
+116	74	'small name'
+117	75	'small name'
+118	76	'small name'
+119	77	'small name'
+120	78	'small name'
+121	79	'small name'
+122	7A	'small name'
+123	7B	'small name'
+124	7C	'small name'
+125	7D	'small name'
+126	7E	'small name'
+127	7F	'small name'
+128	80	'small name'
+129	81	'small name'
+130	82	'small name'
+131	83	Stun Grenade
+132	84	Tear Gas
+133	85	Mustard Gas
+134	86	Mini Grenade
+135	87	Hand Grenade
+136	88	RDX
+137	89	TNT
+138	8A	HMX
+139	8B	C1
+140	8C	Mortar Shell
+141	8D	Mine
+142	8E	C4
+143	8F	Trip Flare
+144	90	Trip Klaxon
+145	91	Shaped Charge
+146	92	Break Light
+147	93	40mm Grenade
+148	94	40mm Tear Gas
+149	95	40mm Stun
+150	96	40mm Smoke
+151	97	Smoke Grenade
+152	98	Shell
+153	99	Struct Ignite
+154	9A	Cocktail
+155	9B	Struct Exp
+156	9C	GB Exp
+157	9D	Big Tear Gas
+158	9E	S C Gas
+159	9F	L C Gas
+160	A0	'small name'
+161	A1	Flak Jacket
+162	A2	Flak-18 Jacket
+163	A3	C.Flak Jacket
+164	A4	Kevlar Vest
+165	A5	Kevlar-18 Vest
+166	A6	C.Kevlar Vest
+167	A7	Spectra Vest
+168	A8	Spec-18 Vest
+169	A9	C.Spec Vest
+170	AA	Kevlar Pants
+171	AB	Kevlar-18 Pants
+172	AC	C.Kevlar Pants
+173	AD	Spectra Pants
+174	AE	Spec-18 Pants
+175	AF	C.Spec Pants
+176	B0	Steel Helmet
+177	B1	Kevlar Helmet
+178	B2	Kvlr-18 Helmet
+179	B3	C.Kvlr Helmet
+180	B4	Spectra Helmet
+181	B5	Spec-18 Helmet
+182	B6	C.Spec Helmet
+183	B7	Ceramic Plates
+184	B8	Infant Hide
+185	B9	Kiddy Hide
+186	BA	Adult Hide
+187	BB	Queen Hide
+188	BC	Leather Jacket
+189	BD	Kvlr Leather
+190	BE	Kvlr-18 Leather
+191	BF	C.Kvlr Leather
+192	C0	YF Hide
+193	C1	OF Hide
+194	C2	T-Shirt
+195	C3	T-Shirt
+196	C4	Guardian Vest
+197	C5	T. Guard Vest
+198	C6	C. Guard Vest
+199	C7	'small name'
+200	C8	'small name'
+201	C9	1st Aid Kit
+202	CA	Med Kit
+203	CB	Tool Kit
+204	CC	Locksmith Kit
+205	CD	Camo Kit
+206	CE	Traps Kit
+207	CF	Silencer
+208	D0	Sniper Scope
+209	D1	Bipod
+210	D2	Extended Ear
+211	D3	Night Goggles
+212	D4	Sun Goggles
+213	D5	Gas Mask
+214	D6	Canteen
+215	D7	Metal Detector
+216	D8	Compound 18
+217	D9	Jelly
+218	DA	Elixir
+219	DB	Money
+220	DC	Jar
+221	DD	Full Jar
+222	DE	Energy Boost
+223	DF	Detonator
+224	E0	Remote Det.
+225	E1	Videotape
+226	E2	Deed
+227	E3	Letter
+228	E4	Diskette
+229	E5	Chalice
+230	E6	Claws
+231	E7	Teeth
+232	E8	Pelt
+233	E9	Switch
+234	EA	Action Item
+235	EB	Regen Boost
+236	EC	Syringe
+237	ED	Syringe
+238	EE	Syringe
+239	EF	Full Jar
+240	F0	Ownership
+241	F1	Laser Scope
+242	F2	Remote Trigger
+243	F3	Wire Cutters
+244	F4	Duckbill
+245	F5	Alcohol
+246	F6	UV Goggles
+247	F7	Discarded LAW
+248	F8	Head
+249	F9	Head
+250	FA	Head
+251	FB	Head
+252	FC	Head
+253	FD	Head
+254	FE	Head
+255	FF	Wine
+256	100	Beer
+257	101	Porn
+258	102	Video Camera
+259	103	Robot Remote
+260	104	Claw
+261	105	Flesh
+262	106	Organ
+263	107	Remote
+264	108	Platinum Watch
+265	109	Golf Clubs
+266	10A	Walkman
+267	10B	Portable TV
+268	10C	CurBal
+269	10D	Cigars
+270	10E	'small name'
+271	10F	Key
+272	110	Key
+273	111	Key
+274	112	Key
+275	113	Key
+276	114	Key
+277	115	Key
+278	116	Key card
+279	117	Key
+280	118	Key
+281	119	Key
+282	11A	Key
+283	11B	Key
+284	11C	Key
+285	11D	Key
+286	11E	Key
+287	11F	Key
+288	120	Key
+289	121	Key
+290	122	Key
+291	123	Key
+292	124	Key
+293	125	Key
+294	126	Key
+295	127	Key
+296	128	Key
+297	129	Key
+298	12A	Key
+299	12B	Key
+300	12C	Key
+301	12D	Key
+302	12E	Key
+303	12F	Platter
+304	130	Duct Tape
+305	131	Rod
+306	132	Spring
+307	133	Rod & Spring
+308	134	Steel Tube
+309	135	Quick Glue
+310	136	Extender
+311	137	String
+312	138	Can
+313	139	Can w/ String
+314	13A	Marbles
+315	13B	LameBoy
+316	13C	Copper Wire
+317	13D	Display Unit
+318	13E	FumblePak
+319	13F	X-ray Tube
+320	140	Gum
+321	141	X-ray Device
+322	142	Batteries
+323	143	Rubber Band
+324	144	X-ray Detector
+325	145	Silver
+326	146	Gold
+327	147	Gas
+328	148	'small name'
+329	149	'small name'
+330	14A	'small name'
+331	14B	'small name'
+332	14C	'small name'
+333	14D	'small name'
+334	14E	'small name'
+335	14F	'small name'
+336	150	'small name'
+337	151	'small name'
+338	152	'small name'
+339	153	'small name'
+340	154	'small name'
+341	155	'small name'
+342	156	'small name'
+343	157	'small name'
+344	158	'small name'
+345	159	'small name'
+346	15A	'small name'
+347	15B	'small name'
+348	15C	'small name'
+349	15D	'small name'
+350	15E	'small name'

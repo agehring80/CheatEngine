@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CheatTable CheatEngineTableVersion="31">
+<CheatTable CheatEngineTableVersion="42">
   <CheatEntries>
     <CheatEntry>
       <ID>89</ID>
       <Description>"Init - run this FIRST within the Battle Screen !"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -13,9 +12,9 @@
 -- JA2 Cheat Engine Table                              --
 -- Created by CrazyGerry (agehring80)                  --
 --                                                     --
--- Version Label: Stracciatella v0.19.1-git+6ad1b6f    --
+-- Version Label: Stracciatella v0.20.0-git+439a6d3    --
 -- Version #:     Build 04.12.02                       --
--- ja2-stracciatella_0.19.1-git+6ad1b6f_win-msvc64-142 --
+-- ja2-stracciatella_0.20.0-git+439a6d3_win-msvc64-142 --
 --                                                     --
 ---------------------------------------------------------
 
@@ -97,9 +96,9 @@ totalSoldiers = 156
 
 -- Init Team+TeamMates addresses
 ja2 = getAddress("ja2.exe") -- base address
-activatedSoldierIDPointer = ja2+0x1CB59A0
-firstSoldierAddr = activatedSoldierIDPointer+0x670
-soldierOffset = 0x9E8
+activatedSoldierIDPointer = ja2+0xCB7C30
+firstSoldierAddr = activatedSoldierIDPointer+0x500
+soldierOffset = 0x9D8
 
 -- fill all player addresses
 for i=1, totalSoldiers do
@@ -149,18 +148,18 @@ for i=1, totalSoldiers do
   addrDexterity[i] = firstSoldierAddr+0x346+(soldierOffset*(i-1))
   addrWisdom[i] = firstSoldierAddr+0x347+(soldierOffset*(i-1))
   addrLevel[i] = firstSoldierAddr+0x363+(soldierOffset*(i-1))
-  addrHealth[i] = firstSoldierAddr+0x380+(soldierOffset*(i-1))
-  addrAgility[i] = firstSoldierAddr+0x38a+(soldierOffset*(i-1))
-  addrStrength[i] = firstSoldierAddr+0x390+(soldierOffset*(i-1))
-  addrLeadership[i] = firstSoldierAddr+0x399+(soldierOffset*(i-1))
-  addrMechanical[i] = firstSoldierAddr+0x3b0+(soldierOffset*(i-1))
-  addrMaxHealth[i] = firstSoldierAddr+0x3b1+(soldierOffset*(i-1))
-  addrMedical[i] = firstSoldierAddr+0x660+(soldierOffset*(i-1))
-  addrMarksmanship[i] = firstSoldierAddr+0x670+(soldierOffset*(i-1))
-  addrExplosives[i] = firstSoldierAddr+0x671+(soldierOffset*(i-1))
-  addrMorale[i] = firstSoldierAddr+0x7bc+(soldierOffset*(i-1))
-  addrPersonID[i] = firstSoldierAddr+0x811+(soldierOffset*(i-1))
-  addrCamouflage[i] = firstSoldierAddr+0x918+(soldierOffset*(i-1))
+  addrHealth[i] = firstSoldierAddr+0x376+(soldierOffset*(i-1))
+  addrAgility[i] = firstSoldierAddr+0x380+(soldierOffset*(i-1))
+  addrStrength[i] = firstSoldierAddr+0x386+(soldierOffset*(i-1))
+  addrLeadership[i] = firstSoldierAddr+0x38f+(soldierOffset*(i-1))
+  addrMechanical[i] = firstSoldierAddr+0x3a4+(soldierOffset*(i-1))
+  addrMaxHealth[i] = firstSoldierAddr+0x3a5+(soldierOffset*(i-1))
+  addrMedical[i] = firstSoldierAddr+0x650+(soldierOffset*(i-1))
+  addrMarksmanship[i] = firstSoldierAddr+0x660+(soldierOffset*(i-1))
+  addrExplosives[i] = firstSoldierAddr+0x661+(soldierOffset*(i-1))
+  addrMorale[i] = firstSoldierAddr+0x7ac+(soldierOffset*(i-1))
+  addrPersonID[i] = firstSoldierAddr+0x801+(soldierOffset*(i-1))
+  addrCamouflage[i] = firstSoldierAddr+0x908+(soldierOffset*(i-1))
 end
 
 -- part of the source code file: Overhead_Types.h
@@ -189,7 +188,7 @@ function getItem(item)
         writeBytes(activatedSoldierHand2Addr,itmClear)
       end
       if readBytes(activatedSoldierHand1Addr) == 65 then -- RocketRifle is protected by fingerprint (PersonID)
-        writeBytes(activatedSoldierHand1Addr+0x1F,readBytes(activatedSoldierIDAddr+0x811))
+        writeBytes(activatedSoldierHand1Addr+0x1F,readBytes(activatedSoldierIDAddr+0x801))
       end
       if readBytes(activatedSoldierHand1Addr) == 36 then -- HK21 often used as grenade launcher
         writeBytes(activatedSoldierHand1Addr+0x84C, 2) -- Grenade Fire Mode
@@ -212,7 +211,6 @@ nop
     <CheatEntry>
       <ID>98</ID>
       <Description>"Crtl+F1: A.R. Rifle to Hand"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -241,7 +239,6 @@ nop
     <CheatEntry>
       <ID>95</ID>
       <Description>"Crtl+F2: HK21 + Addons + Grenade"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -270,7 +267,6 @@ nop
     <CheatEntry>
       <ID>97</ID>
       <Description>"Crtl+F3: Mortar to Hand"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -299,7 +295,6 @@ nop
     <CheatEntry>
       <ID>94</ID>
       <Description>"Crtl+F4: LAW to Hand"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -328,7 +323,6 @@ nop
     <CheatEntry>
       <ID>93</ID>
       <Description>"Crtl+F5: Mustard Gas Grenade to Hand"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -357,7 +351,6 @@ nop
     <CheatEntry>
       <ID>96</ID>
       <Description>"Crtl+F6: HMX + Detonator to Hand"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -386,7 +379,6 @@ nop
     <CheatEntry>
       <ID>99</ID>
       <Description>"Crtl+F7: LockSmith"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -415,7 +407,6 @@ nop
     <CheatEntry>
       <ID>92</ID>
       <Description>"Crtl+F8: Booster to Hand"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -444,7 +435,6 @@ nop
     <CheatEntry>
       <ID>100</ID>
       <Description>"Crtl+F9: MedKit to Hand"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -473,7 +463,6 @@ nop
     <CheatEntry>
       <ID>102</ID>
       <Description>"Crtl+F10: Tranquilizer Dart Gun"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -502,7 +491,6 @@ nop
     <CheatEntry>
       <ID>103</ID>
       <Description>"Crtl+F11: Machete"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -531,7 +519,6 @@ nop
     <CheatEntry>
       <ID>101</ID>
       <Description>"Crtl+F12: Toggle NightVision / GasMask"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -564,7 +551,6 @@ nop
     <CheatEntry>
       <ID>84</ID>
       <Description>"Auto - max skills, armor &amp; energy"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>{$lua}
 [ENABLE]
@@ -625,7 +611,6 @@ skillthread.terminate()
     <CheatEntry>
       <ID>90</ID>
       <Description>"Auto - reload &amp; body fix"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>{$lua}
 [ENABLE]
@@ -642,6 +627,7 @@ inventorythread = createThread(function(Thread)
       if isTeamMate(soldierName,soldierTeam) then
         --print(soldierName , soldierTeam)
         itemHand1 = readSmallInteger(addrHand1[i])
+        itemSmPock8 = readSmallInteger(addrSmPock8[i])
 
         if itemHand1 == 65 then
           writeBytes(addrHand1[i]+0x2, 1, 0, 100, 10, 20)-- Rocket Rifle Reload
@@ -654,6 +640,9 @@ inventorythread = createThread(function(Thread)
           writeBytes(addrHand1[i],36,0,1,0,100,2,20,0,101,0,100,0,0,0,0,0,241,0,54,1,50,0,147,0,100,100,100,100,0,0,0,0,126,0,0,0)
         else
           -- no match
+        end
+        if itemSmPock8 == 0 or itemSmPock8 == 219 then
+          writeBytes(addrSmPock8[i],219,0,1,0,100,0,0,0,80,195) -- always coffee money
         end
 
         writeBytes(addrBleeding[i],0)--Bleeding
@@ -671,11 +660,99 @@ inventorythread.terminate()
 </AssemblerScript>
     </CheatEntry>
     <CheatEntry>
-      <ID>0</ID>
-      <Description>"Money"</Description>
-      <LastState Value="5000000" RealAddress=""/>
-      <VariableType>4 Bytes</VariableType>
-      <Address>ja2.exe+1BC5598</Address>
+      <ID>106</ID>
+      <Description>"Num -: Item 4th big pocket --"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+activatedSoldierIDAddr = readPointer(activatedSoldierIDPointer)
+  if activatedSoldierIDAddr &gt;= addrID[1] and activatedSoldierIDAddr &lt;= addrID[totalSoldiers] then
+    activatedSoldierBigPock4 = activatedSoldierIDAddr + 0x170
+    itemNow = readSmallInteger(activatedSoldierBigPock4)
+    --print(itemNow)
+    if itemNow &lt;= 0 then
+      itemNow = 351
+    end
+    writeSmallInteger(activatedSoldierBigPock4,itemNow - 1)
+    writeBytes(activatedSoldierBigPock4+0x2,1,0,100)
+  end
+
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>109</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound>Activate</ActivateSound>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>105</ID>
+      <Description>"Num +: Item 4th big pocket ++"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+activatedSoldierIDAddr = readPointer(activatedSoldierIDPointer)
+  if activatedSoldierIDAddr &gt;= addrID[1] and activatedSoldierIDAddr &lt;= addrID[totalSoldiers] then
+    activatedSoldierBigPock4 = activatedSoldierIDAddr + 0x170
+    itemNow = readSmallInteger(activatedSoldierBigPock4)
+    --print(itemNow)
+    if itemNow &gt;= 350 then
+      itemNow = -1
+    end
+    writeSmallInteger(activatedSoldierBigPock4,itemNow + 1)
+    writeBytes(activatedSoldierBigPock4+0x2,1,0,100)
+  end
+
+
+{$asm}
+// this write fails and the checkbox gets not checked
+00000000:
+nop
+
+[DISABLE]
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>107</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound>Activate</ActivateSound>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>108</ID>
+      <Description>"activatedMercPointer"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <GroupHeader>1</GroupHeader>
+      <Address>ja2.exe+CB7C30</Address>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>104</ID>
+          <Description>"activatedMercBegin"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Array of byte</VariableType>
+          <ByteLength>8</ByteLength>
+          <Address>ja2.exe+CB7C30</Address>
+          <Offsets>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
     </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>

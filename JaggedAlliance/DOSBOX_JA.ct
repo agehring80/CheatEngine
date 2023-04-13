@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CheatTable CheatEngineTableVersion="31">
+<CheatTable CheatEngineTableVersion="42">
   <CheatEntries>
     <CheatEntry>
       <ID>2</ID>
       <Description>"Find and set symbols"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>{$Lua}      
 ---------------------------------------------------------
@@ -90,7 +89,6 @@ unregisterSymbol('NeedleAddress')
     <CheatEntry>
       <ID>9</ID>
       <Description>"Crtl+U: MaxOut Soldier Health + Skills"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -125,7 +123,6 @@ nop
     <CheatEntry>
       <ID>12</ID>
       <Description>"Crtl+E: Get Base Equipment"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -168,7 +165,6 @@ nop
     <CheatEntry>
       <ID>6</ID>
       <Description>"Num 1: M16 + Scope"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -203,7 +199,6 @@ nop
     <CheatEntry>
       <ID>8</ID>
       <Description>"Num 2: Magnum + Silencer"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -238,7 +233,6 @@ nop
     <CheatEntry>
       <ID>13</ID>
       <Description>"Num 3: Magnum + Scope"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -273,7 +267,6 @@ nop
     <CheatEntry>
       <ID>7</ID>
       <Description>"Num 4: Grenade"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -308,7 +301,6 @@ nop
     <CheatEntry>
       <ID>10</ID>
       <Description>"Num 5: Pl.Explosive"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -343,7 +335,6 @@ nop
     <CheatEntry>
       <ID>11</ID>
       <Description>"Num 6: Locksmith"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -378,7 +369,6 @@ nop
     <CheatEntry>
       <ID>17</ID>
       <Description>"Num 7: Crowbar"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -413,7 +403,6 @@ nop
     <CheatEntry>
       <ID>18</ID>
       <Description>"Num 8: ToolKit"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -448,7 +437,6 @@ nop
     <CheatEntry>
       <ID>19</ID>
       <Description>"Num 9: MedKit"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -483,7 +471,6 @@ nop
     <CheatEntry>
       <ID>14</ID>
       <Description>"Num -: Item 5th pocket --"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -491,6 +478,9 @@ activatedSoldierID = readBytes(activatedSoldierIDAddr,1)
 activatedSoldierVestPocket5Addr = firstMercAddr+11*itmLength+soldierOffset*activatedSoldierID
 itemNow = readBytes(activatedSoldierVestPocket5Addr,1)
 --print(itemNow)
+if itemNow &lt;= 0 then
+  itemNow = 136
+end
 writeBytes(activatedSoldierVestPocket5Addr, itemNow - 1,99,100)
 
 {$asm}
@@ -514,7 +504,6 @@ nop
     <CheatEntry>
       <ID>15</ID>
       <Description>"Num +: Item 5th pocket ++"</Description>
-      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
@@ -522,6 +511,9 @@ activatedSoldierID = readBytes(activatedSoldierIDAddr,1)
 activatedSoldierVestPocket5Addr = firstMercAddr+11*itmLength+soldierOffset*activatedSoldierID
 itemNow = readBytes(activatedSoldierVestPocket5Addr,1)
 --print(itemNow)
+if itemNow &gt;= 135 then
+  itemNow = -1
+end
 writeBytes(activatedSoldierVestPocket5Addr, itemNow + 1,99,100)
 
 {$asm}
@@ -543,22 +535,11 @@ nop
       </Hotkeys>
     </CheatEntry>
     <CheatEntry>
-      <ID>5</ID>
-      <Description>"First Merc"</Description>
-      <VariableType>Byte</VariableType>
-      <Address>NeedleAddress+EE18</Address>
-    </CheatEntry>
-    <CheatEntry>
       <ID>16</ID>
-      <Description>"NeedleAddress"</Description>
+      <Description>"NeedleAddress (don't change! internal use)"</Description>
       <VariableType>Byte</VariableType>
       <Address>NeedleAddress</Address>
     </CheatEntry>
   </CheatEntries>
-  <UserdefinedSymbols>
-    <SymbolEntry>
-      <Name>NeedleAddress</Name>
-      <Address>F89BB60</Address>
-    </SymbolEntry>
-  </UserdefinedSymbols>
+  <UserdefinedSymbols/>
 </CheatTable>

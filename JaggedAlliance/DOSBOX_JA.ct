@@ -3,7 +3,7 @@
   <CheatEntries>
     <CheatEntry>
       <ID>2</ID>
-      <Description>"Find and set symbols"</Description>
+      <Description>"Init - run this FIRST within the Battle Screen !"</Description>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>{$Lua}      
 ---------------------------------------------------------
@@ -23,6 +23,7 @@ if (needleAoB == nil or needleAoB.Count &gt; 1) then --&gt; Ends function earlie
    return
 end
 needleAddr=tonumber('0x' .. needleAoB[0])
+-- symbol is like an alias. So cheat tables and the memory browser can use that name instead of an address.
 unregisterSymbol('NeedleAddress') registerSymbol('NeedleAddress',needleAddr)
 needleAoB.destroy()
 firstMercAddr=needleAddr+0xEE18
@@ -44,7 +45,7 @@ end
 -- Init Items
 itmLength = 12
 itmClear = {0,0,0,0,0,0,0,0,0,0,0,0}
-itmM16 = {14,20,100,66,1,100,0,0,0,0,0,0}
+itmM16 = {14,30,100,66,1,100,0,0,0,0,0,0}
 itmGren = {28,2,100,0,0,0,0,0,100,0,0,0}
 itmMagnSc = {7,10,100,66,1,100,0,0,0,0,0,0}
 itmMagnSil = {7,10,100,91,1,100,0,0,0,0,0,0}
@@ -156,6 +157,46 @@ nop
           <Keys>
             <Key>17</Key>
             <Key>69</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound>Activate</ActivateSound>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>20</ID>
+      <Description>"Crtl+G: God Mode"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{$lua}
+[ENABLE]
+
+if syntaxCheck then return end
+godmodethread = createThread(function(Thread)
+  while true do
+    if Thread.Terminated then break end -- breaks loops and allows function to end
+    sleep(3000) -- interval
+    for i=0,7 do
+      soldierHealth = firstMercAddr+0x183+soldierOffset*i
+      soldierBreath = firstMercAddr+0x18A+soldierOffset*i
+      soldierCamoflage = firstMercAddr+0x1B1+soldierOffset*i
+      soldierActionP = firstMercAddr+0x1A5+soldierOffset*i
+      writeBytes(soldierHealth, 100,100,0)
+      writeBytes(soldierBreath, 100)
+      writeBytes(soldierCamoflage,255)
+      writeBytes(soldierActionP,99)
+    end
+  end
+end)
+
+[DISABLE]
+godmodethread.terminate()
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>71</Key>
           </Keys>
           <ID>0</ID>
           <ActivateSound>Activate</ActivateSound>
@@ -536,7 +577,8 @@ nop
     </CheatEntry>
     <CheatEntry>
       <ID>16</ID>
-      <Description>"NeedleAddress (don't change! internal use)"</Description>
+      <Description>"NeedleAddress (don't change!)"</Description>
+      <Color>808080</Color>
       <VariableType>Byte</VariableType>
       <Address>NeedleAddress</Address>
     </CheatEntry>

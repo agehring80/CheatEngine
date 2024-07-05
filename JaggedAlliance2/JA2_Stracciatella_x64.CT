@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CheatTable CheatEngineTableVersion="42">
+<CheatTable CheatEngineTableVersion="45">
   <CheatEntries>
     <CheatEntry>
       <ID>89</ID>
@@ -12,9 +12,9 @@
 -- JA2 Cheat Engine Table                              --
 -- Created by CrazyGerry (agehring80)                  --
 --                                                     --
--- Version Label: Stracciatella v0.20.0-git+439a6d3    --
+-- Version Label: Stracciatella v0.21.0-git+61938e1    --
 -- Version #:     Build 04.12.02                       --
--- ja2-stracciatella_0.20.0-git+439a6d3_win-msvc64-142 --
+-- ja2-stracciatella_0.21.0-git+61938e1_win-msvc64-142 --
 --                                                     --
 ---------------------------------------------------------
 
@@ -96,9 +96,9 @@ totalSoldiers = 156
 
 -- Init Team+TeamMates addresses
 ja2 = getAddress("ja2.exe") -- base address
-activatedSoldierIDPointer = ja2+0xCB7C30
-firstSoldierAddr = activatedSoldierIDPointer+0x500
-soldierOffset = 0x9D8
+activatedSoldierIDPointer = ja2+0xCAF428
+firstSoldierAddr = activatedSoldierIDPointer+0x4F8
+soldierOffset = 0xA00
 
 -- fill all player addresses
 for i=1, totalSoldiers do
@@ -738,7 +738,7 @@ nop
       <Description>"activatedMercPointer"</Description>
       <ShowAsSigned>0</ShowAsSigned>
       <GroupHeader>1</GroupHeader>
-      <Address>ja2.exe+CB7C30</Address>
+      <Address>ja2.exe+CAF428</Address>
       <CheatEntries>
         <CheatEntry>
           <ID>104</ID>
@@ -747,7 +747,7 @@ nop
           <ShowAsSigned>0</ShowAsSigned>
           <VariableType>Array of byte</VariableType>
           <ByteLength>8</ByteLength>
-          <Address>ja2.exe+CB7C30</Address>
+          <Address>ja2.exe+CAF428</Address>
           <Offsets>
             <Offset>0</Offset>
           </Offsets>
